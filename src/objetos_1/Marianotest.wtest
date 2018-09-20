@@ -1,0 +1,63 @@
+import golosinas.*
+import mariano.*
+
+describe "comportamiento de mariano"{
+	
+	test "mariano compra tres golosinas y desecha una"{
+		mariano.comprar(chocolatin)
+		mariano.comprar(caramelo)
+		mariano.comprar(bombon)
+		mariano.desechar(caramelo)
+		assert.equals(mariano.golosinas(), #{chocolatin,bombon})
+	}
+	
+	test "mariano prueba las golosinas"
+	{  
+		chocolatin.pesoInicial(50)
+		mariano.comprar(caramelo)
+		mariano.comprar(oblea)
+		mariano.comprar(chocolatin)
+	    mariano.probarGolosinas()
+	    assert.equals(125, oblea.peso())
+	    assert.equals(48 ,chocolatin.peso())
+	    assert.equals(4,caramelo.peso())
+	}
+	
+	test "hay golosinas aptas para celiacos"{
+		// me da mal este metodo pero no se como arreglarlo 
+		mariano.comprar(oblea)
+		mariano.comprar(alfajor)
+		assert.that(mariano.hayGolosinasSinTACC())
+	}
+	
+	test " mariano economiza"{
+		mariano.comprar(caramelo)
+		mariano.comprar(chupetin)
+		mariano.comprar(bombon)
+		assert.that(mariano.preciosCuidados())
+	}
+	
+	test " golosina mas cara"{
+		mariano.comprar(caramelo)
+		mariano.comprar(chupetin)
+		mariano.comprar(bombon)
+		assert.equals(bombon, mariano.golosinaMasCara())
+	}
+	
+	
+	test "test golosinas faltantes" {	
+	mariano.comprar(chocolatin)
+	mariano.comprar(caramelo)
+	mariano.comprar(bombon)
+	assert.equals(#{alfajor, chupetin}, mariano.golosinasFaltantes([alfajor, bombon, chocolatin, chupetin]))	
+}
+
+test "test sabores faltantes" {
+	mariano.comprar(chocolatin)
+	mariano.comprar(bombon)
+	mariano.comprar(caramelo)
+	assert.equals(mariano.saboresFaltantes(#{"melon", "chocolate", "frutilla", "vainilla"}), #{"melon", "vainilla"})
+}
+	
+	
+}

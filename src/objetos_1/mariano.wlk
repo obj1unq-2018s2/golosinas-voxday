@@ -19,11 +19,11 @@ object mariano {
 	}
 	
 	method hayGolosinaSinTACC(){
-		bolsaGolosinas.any { golosina => golosina.libreGluten()}
+		return bolsaGolosinas.any { golosina => golosina.libreGluten()}
 	}
 	
 	method preciosCuidados(){
-		bolsaGolosinas.all { golosina =>  golosina.precio() <= 10  }
+		return bolsaGolosinas.all { golosina =>  golosina.precio() <= 10  }
 	}
 	
 	method golosinaDeSabor(unSabor){
@@ -31,7 +31,7 @@ object mariano {
 	}
 	
 	method golosinasDeSabor(unSabor){
-		bolsaGolosinas.filter { golosina => golosina.gusto() == unSabor}
+		return bolsaGolosinas.filter { golosina => golosina.gusto() == unSabor}.asSet()
 	}
 	
 	method sabores() {
@@ -39,15 +39,19 @@ object mariano {
     }
     
 	method golosinaMasCara(){
-		bolsaGolosinas.max { golosina => golosina.precio()}
+		return bolsaGolosinas.max { golosina => golosina.precio()}
 	}
 	
 	method golosinasFaltantes(golosinasDeseadas){
-		golosinasDeseadas.asSet().difference(bolsaGolosinas.asSet())
+		return golosinasDeseadas.asSet().difference(bolsaGolosinas.asSet())
 	}
 	
 	method pesoGolosinas(){
 		bolsaGolosinas.sum{ golosina => golosina.peso()}
 	}
+
+    method saboresFaltantes(sabores){
+    return sabores.asSet().difference(self.sabores()) 	
+    }
 }
 	
